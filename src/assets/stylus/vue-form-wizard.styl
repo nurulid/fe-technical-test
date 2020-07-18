@@ -1,0 +1,59 @@
+// customize vue-form-wizard
+
+.wizard-header
+  display none
+
+.vue-form-wizard .wizard-nav-pills
+  position absolute
+  top -25px
+  left 50%
+  transform translateX(-50%)
+  // width 30%
+  padding 10px 35px 15px
+  background $primary-lighten2
+  border-radius 33px
+  color white
+  justify-content space-between
+
+.wizard-progress-with-circle
+  display none
+
+.vue-form-wizard.md .wizard-icon-circle
+  width 30px
+  height 30px
+  font-size 16px
+  margin-right 5px
+
+.vue-form-wizard.md .wizard-nav-pills>li.active>a .wizard-icon,
+.vue-form-wizard .wizard-icon-circle .wizard-icon
+  font-size 16px
+  font-style normal
+  font-weight normal
+
+.vue-form-wizard .wizard-nav-pills>li>a
+  flex-direction row
+
+.vue-form-wizard .wizard-icon-circle .wizard-icon-container
+  border-radius 50%
+
+.vue-form-wizard .wizard-nav-pills li
+  flex-grow unset
+  flex unset
+
+.vue-form-wizard .wizard-nav-pills li:not(:last-child)
+  margin-right 25px
+
+.vue-form-wizard .wizard-icon-circle
+  background-color $primary-lighten1
+  color $primary
+  border-color $primary-lighten1
+
+.vue-form-wizard .wizard-nav-pills>li>a
+  color $primary
+
+.vue-form-wizard .wizard-nav-pills>li>a:focus, .vue-form-wizard .wizard-nav-pills>li>a:hover
+  color $primary
+  opacity .8
+
+.vue-form-wizard .wizard-card-footer 
+  padding 0 0 0 20px
