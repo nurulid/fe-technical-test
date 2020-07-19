@@ -18,20 +18,21 @@
                     type="email"
                     name="email"
                     id="email"
+                    class="form-group__input"
                     autocomplete="off"
                     required="required"
                     v-model.trim="$v.email.$model"
                   />
-                  <label for="email" class="control-label">Email</label>
+                  <label for="email" class="form-group__label">Email</label>
                   <img
                     v-if="$v.email.$error"
-                    class="icon"
+                    class="form-group__icon"
                     src="../assets/images/icon-clear.svg"
                     alt="icon"
                   />
                   <img
                     v-if="!$v.email.$invalid"
-                    class="icon"
+                    class="form-group__icon"
                     src="../assets/images/icon-check.svg"
                     alt="icon"
                   />
@@ -47,21 +48,22 @@
                     type="number"
                     name="phone"
                     id="phone"
+                    class="form-group__input"
                     autocomplete="off"
                     required="required"
                     v-model.trim="$v.phone.$model"
                     @keydown="checkNumber"
                   />
-                  <label for="phone" class="control-label">Phone Number</label>
+                  <label for="phone" class="form-group__label">Phone Number</label>
                   <img
                     v-if="$v.phone.$error"
-                    class="icon"
+                    class="form-group__icon"
                     src="../assets/images/icon-clear.svg"
                     alt="icon"
                   />
                   <img
                     v-if="!$v.phone.$invalid"
-                    class="icon"
+                    class="form-group__icon"
                     src="../assets/images/icon-check.svg"
                     alt="icon"
                   />
@@ -76,23 +78,24 @@
                   <textarea
                     name="address"
                     id="address"
+                    class="form-group__textarea"
                     cols="30"
                     rows="3"
                     required="required"
                     v-model.trim="$v.address.$model"
                     @keyup="remaincharCount()"
                   ></textarea>
-                  <label for="address" class="control-label">Delivery Address</label>
-                  <span class="note">{{ remaincharactersText }}</span>
+                  <label for="address" class="form-group__label">Delivery Address</label>
+                  <span class="form-group__note">{{ remaincharactersText }}</span>
                   <img
                     v-if="$v.address.$error"
-                    class="icon"
+                    class="form-group__icon"
                     src="../assets/images/icon-clear.svg"
                     alt="icon"
                   />
                   <img
                     v-if="!$v.address.$invalid"
-                    class="icon"
+                    class="form-group__icon"
                     src="../assets/images/icon-check.svg"
                     alt="icon"
                   />
@@ -101,8 +104,8 @@
               <div class="flex-item">
                 <label class="checkbox">
                   Send as dropshipper
-                  <input type="checkbox" id="dropshipper" v-model="isChecked" />
-                  <span class="checkmark" for="dropshipper"></span>
+                  <input type="checkbox" id="dropshipper" class="checkbox__input" v-model="isChecked" />
+                  <span class="checkbox__checkmark" for="dropshipper"></span>
                 </label>
                 <div
                   class="form-group"
@@ -116,20 +119,21 @@
                     name="name"
                     autocomplete="off"
                     id="dropshipper-name"
+                    class="form-group__input"
                     required="required"
                     :disabled="!isChecked"
                     v-model.trim="$v.dropshipperName.$model"
                   />
-                  <label for="dropshipper-name" class="control-label">Dropshipper Name</label>
+                  <label for="dropshipper-name" class="form-group__label">Dropshipper Name</label>
                   <img
                     v-if="$v.dropshipperName.$error"
-                    class="icon"
+                    class="form-group__icon"
                     src="../assets/images/icon-clear.svg"
                     alt="icon"
                   />
                   <img
                     v-if="!$v.dropshipperName.$invalid"
-                    class="icon"
+                    class="form-group__icon"
                     src="../assets/images/icon-check.svg"
                     alt="icon"
                   />
@@ -145,24 +149,25 @@
                     type="number"
                     name="phone"
                     id="dropshipper-phone"
+                    class="form-group__input"
                     required="required"
                     autocomplete="off"
                     :disabled="!isChecked"
                     v-model.trim="$v.dropshipperPhone.$model"
                     @keydown="checkNumber"
                   />
-                  <label for="dropshipper-phone" class="control-label"
+                  <label for="dropshipper-phone" class="form-group__label"
                     >Dropshipper Phone Number</label
                   >
                   <img
                     v-if="$v.dropshipperPhone.$error"
-                    class="icon"
+                    class="form-group__icon"
                     src="../assets/images/icon-clear.svg"
                     alt="icon"
                   />
                   <img
                     v-if="!$v.dropshipperPhone.$invalid"
-                    class="icon"
+                    class="form-group__icon"
                     src="../assets/images/icon-check.svg"
                     alt="icon"
                   />
@@ -179,13 +184,13 @@
               <div class="flex-item">
                 <div class="flex summary-detail">
                   <div class="flex-item">
-                    <div class="summary__label">Costs of goods</div>
-                    <div class="summary__label">Dropshipping fee</div>
+                    <div class="summary-detail__label">Costs of goods</div>
+                    <div class="summary-detail__label">Dropshipping fee</div>
                     <div class="wizard__subtitle">Total</div>
                   </div>
                   <div class="flex-item">
-                    <div class="summary__value">{{ costs }}</div>
-                    <div class="summary__value">{{ dropshipperFee }}</div>
+                    <div class="summary-detail__value">{{ costs }}</div>
+                    <div class="summary-detail__value">{{ dropshipperFee }}</div>
                     <div class="wizard__subtitle">{{ totalSemua }}</div>
                   </div>
                 </div>
@@ -203,14 +208,15 @@
                 <input
                   type="radio"
                   name="shipment"
+                  class="radio-box__input"
                   :id="'shipment-' + i"
                   :value="i"
                   v-model="selectedShipment"
                 />
-                <label class="box" :for="'shipment-' + i"></label>
-                <div class="radio__title">{{ item.name }}</div>
-                <div class="radio__subtitle">{{ item.cost }}</div>
-                <img src="../assets/images/icon-check.svg" alt="icon check" />
+                <label class="radio-box__box" :for="'shipment-' + i"></label>
+                <div class="radio-box__title">{{ item.name }}</div>
+                <div class="radio-box__subtitle">{{ item.cost }}</div>
+                <img class="radio-box__icon" src="../assets/images/icon-check.svg" alt="icon check" />
               </div>
             </div>
             <h2 class="wizard__title">Payment</h2>
@@ -219,14 +225,15 @@
                 <input
                   type="radio"
                   name="payment"
+                  class="radio-box__input"
                   :id="'payment-' + i"
                   :value="item.name"
                   v-model="selectedPayment"
                 />
-                <label class="box" :for="'payment-' + i"></label>
-                <div class="radio__title">{{ item.name }}</div>
-                <div class="radio__subtitle"></div>
-                <img src="../assets/images/icon-check.svg" alt="icon check" />
+                <label class="radio-box__box" :for="'payment-' + i"></label>
+                <div class="radio-box__title">{{ item.name }}</div>
+                <div class="radio-box__subtitle"></div>
+                <img class="radio-box__icon" src="../assets/images/icon-check.svg" alt="icon check" />
               </div>
             </div>
           </div>
@@ -245,17 +252,17 @@
               <div class="flex-item">
                 <div class="flex summary-detail">
                   <div class="flex-item">
-                    <div class="summary__label">Costs of goods</div>
-                    <div class="summary__label">Dropshipping fee</div>
-                    <div class="summary__label">
+                    <div class="summary-detail__label">Costs of goods</div>
+                    <div class="summary-detail__label">Dropshipping fee</div>
+                    <div class="summary-detail__label">
                       <strong>{{ shipment[selectedShipment].name }}</strong> shipment
                     </div>
                     <div class="wizard__subtitle">Total</div>
                   </div>
                   <div class="flex-item">
-                    <div class="summary__value">{{ costs }}</div>
-                    <div class="summary__value">{{ dropshipperFee }}</div>
-                    <div class="summary__value">{{ shipment[selectedShipment].cost + 0 }}</div>
+                    <div class="summary-detail__value">{{ costs }}</div>
+                    <div class="summary-detail__value">{{ dropshipperFee }}</div>
+                    <div class="summary-detail__value">{{ shipment[selectedShipment].cost + 0 }}</div>
                     <div class="wizard__subtitle">
                       {{ totalSemua + shipment[selectedShipment].cost }}
                     </div>
@@ -301,17 +308,17 @@
               <div class="flex-item">
                 <div class="flex summary-detail">
                   <div class="flex-item">
-                    <div class="summary__label">Costs of goods</div>
-                    <div class="summary__label">Dropshipping fee</div>
-                    <div class="summary__label">
+                    <div class="summary-detail__label">Costs of goods</div>
+                    <div class="summary-detail__label">Dropshipping fee</div>
+                    <div class="summary-detail__label">
                       <strong>{{ shipment[selectedShipment].name }}</strong> shipment
                     </div>
                     <div class="wizard__subtitle">Total</div>
                   </div>
                   <div class="flex-item">
-                    <div class="summary__value">{{ costs }}</div>
-                    <div class="summary__value">{{ dropshipperFee }}</div>
-                    <div class="summary__value">{{ shipment[selectedShipment].cost + 0 }}</div>
+                    <div class="summary-detail__value">{{ costs }}</div>
+                    <div class="summary-detail__value">{{ dropshipperFee }}</div>
+                    <div class="summary-detail__value">{{ shipment[selectedShipment].cost + 0 }}</div>
                     <div class="wizard__subtitle">
                       {{ totalSemua + shipment[selectedShipment].cost }}
                     </div>
@@ -638,13 +645,13 @@ export default {
         justify-content space-between
         .flex-item:last-child
           text-align right
-      $margin = 10px
-      .summary__label
-        color $secondary-lighten2
-        margin-bottom $margin
-      .summary__value
-        font-weight 600
-        margin-bottom $margin
+        $margin = 10px
+        &__label
+          color $secondary-lighten2
+          margin-bottom $margin
+        &__value
+          font-weight 600
+          margin-bottom $margin
       hr
         border 1px solid $secondary-lighten4
         margin 1rem 0

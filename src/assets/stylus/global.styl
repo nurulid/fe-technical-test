@@ -76,42 +76,39 @@ subtitle()
 .form-group
   position relative
   margin-bottom 10px
-  .note
-    color $secondary-lighten2
-    .error
-      color $primary
 
-  &.form-group--textarea
+  &--textarea
     text-align right
 
   field-focus()
     outline none
     border-color $secondary-lighten3
 
-  input
+  &__input
     font-size 15px
     font-weight 600
     color #2D2A40
     height 55px
     transition all 0.28s ease
     width 100%
-    padding 20px 10px 5px
+    padding 20px 30px 5px 10px
     border 1px solid $secondary-lighten3
     border-radius 0
     &:focus
       field-focus()
     
-  textarea
-    @extend input
+  &__textarea
+    @extend .form-group__input
     min-height 130px
     resize none
     padding-top 30px
+    padding-right 10px
     overflow hidden
     font-size 15px
     &:focus
       field-focus()
 
-  label.control-label 
+  &__label 
     position absolute
     left 10px
     top 47%
@@ -120,47 +117,52 @@ subtitle()
     transition all 0.28s ease
     cursor text
 
-  .icon 
+  &__icon 
     position absolute
     right 13px
     top 20px
 
-  &.form-group--textarea .icon
+  &__note
+    color $secondary-lighten2
+    // &.error
+    //   color $primary
+
+  &&--textarea &__icon
     top 13px
 
-  textarea ~ .control-label
+  &__textarea ~ &__label
     top 28px
   
   $validColor = $accent
   $invalidColor = $primary
 
-  &.form-group--invalid input,
-  &.form-group--invalid textarea
+  &&--invalid input,
+  &&--invalid textarea
     border-color $invalidColor
 
   label-up()
     top 17px
     font-size 12px
 
-  &.form-group--invalid .control-label
+  &&--invalid &__label
     color $invalidColor
     label-up()
 
-  &.form-group--invalid .note
+  &&--invalid &__note
     color $invalidColor
 
-  &.form-group--valid input,
-  &.form-group--valid textarea
+  &&--valid input,
+  &&--valid textarea
     border-color $validColor
 
-  &.form-group--valid .control-label
+  &&--valid &__label
     color $validColor
     label-up() 
 
-  input:focus ~ .control-label,
-  input:valid ~ .control-label,
-  textarea:focus ~ .control-label,
-  textarea:valid ~ .control-label
+  &__input:focus ~ &__label,
+  &__input:valid ~ &__label,
+  &__textarea:focus ~ &__label,
+  &__textarea:valid ~ &__label
     label-up()
 
 // custom checkbox
@@ -175,13 +177,13 @@ subtitle()
   user-select none
   &:hover
     opacity .8
-  input 
+  &__input 
     position absolute
     opacity 0
     cursor pointer
     height 0
     width 0
-  .checkmark 
+  &__checkmark 
     position absolute
     top 0
     left 0
@@ -201,7 +203,7 @@ subtitle()
       -webkit-transform rotate(45deg)
       -ms-transform rotate(45deg)
       transform rotate(45deg)
-  input:checked ~ .checkmark:after 
+  &__input:checked ~ &__checkmark:after 
     display block
 
 // custom radio box
@@ -213,9 +215,9 @@ subtitle()
   margin-bottom 10px
   &:not(:last-child)
     margin-right 10px  
-  input
+  &__input
     display none
-  .box
+  &__box
     display inline-block
     position absolute
     top 0
@@ -227,22 +229,22 @@ subtitle()
     transition all .3s ease
     z-index 1
     min-height 40px
-  img
+  &__icon
     opacity 0
     transition all 0.3s ease
     position absolute
     right 18px
     top 50%
     transform translateY(-50%)
-  .radio__title
+  &__title
     margin-bottom 3px
-  .radio__subtitle
+  &__subtitle
     font-weight 600
     font-size 16px
     color $secondary-lighten2
-  input[type="radio"]:checked ~ img 
+  &__input[type="radio"]:checked ~ &__icon 
     opacity 1
-  input[type="radio"]:checked ~ .box
+  &__input[type="radio"]:checked ~ &__box
     border-color $accent
-  input[type="radio"]:checked ~ .radio__subtitle
+  &__input[type="radio"]:checked ~ &__subtitle
     color $secondary
