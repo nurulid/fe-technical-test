@@ -8,12 +8,24 @@
   top -25px
   left 50%
   transform translateX(-50%)
-  // width 30%
   padding 10px 35px 15px
   background $primary-lighten2
   border-radius 33px
   color white
   justify-content space-between
+  @media medium
+    left: 37%;
+    transform: translateX(-27%);
+  @media x-medium
+    left: 0;
+    transform: translateX(9%);
+    flex-wrap: nowrap;
+  @media small
+    transform: unset;
+    width: 95%;
+    margin: -28px auto;
+    position: relative;
+    padding 10px
 
 .wizard-progress-with-circle
   display none
@@ -32,6 +44,8 @@
 
 .vue-form-wizard .wizard-nav-pills>li>a
   flex-direction row
+  @media x-medium
+    justify-content: center;
 
 .vue-form-wizard .wizard-icon-circle .wizard-icon-container
   border-radius 50%
@@ -41,7 +55,9 @@
   flex unset
 
 .vue-form-wizard .wizard-nav-pills li:not(:last-child)
-  margin-right 25px
+  margin-right 40px
+  @media small
+    margin-right 15px
 
 .vue-form-wizard .wizard-icon-circle
   background-color $primary-lighten1
@@ -57,3 +73,15 @@
 
 .vue-form-wizard .wizard-card-footer 
   padding 0 0 0 20px
+
+.wizard-nav.wizard-nav-pills li:not(:last-child) a:after
+  content: ""
+  width: 10px
+  height: 13px
+  position: absolute
+  right: -26px
+  top: 11px
+  background: url(../assets/images/keyboard_arrow_right.svg) no-repeat
+  display: block
+  @media small
+    right -14px

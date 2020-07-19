@@ -4,7 +4,7 @@
       <tab-content title="Delivery">
         <div class="wizard-content-wrapper flex">
           <div class="left">
-            <div class="flex">
+            <div class="flex delivery">
               <div class="flex-item">
                 <h2 class="wizard__title">Delivery details</h2>
                 <div
@@ -174,7 +174,7 @@
             <div class="flex summary">
               <div class="flex-item">
                 <h3 class="wizard__subtitle">Summary</h3>
-                <div class="summary__label">10 items purchased</div>
+                <div class="label-secondary-lighten">10 items purchased</div>
               </div>
               <div class="flex-item">
                 <div class="flex summary-detail">
@@ -198,24 +198,127 @@
         <div class="wizard-content-wrapper flex">
           <div class="left">
             <h2 class="wizard__title">Shipment</h2>
-            <form>
-              <div></div>
-            </form>
+            <div class="shipment-list">
+              <div class="radio-box" v-for="(item, i) in shipment" :key="i">
+                <input
+                  type="radio"
+                  name="shipment"
+                  :id="'shipment-' + i"
+                  :value="i"
+                  v-model="selectedShipment"
+                />
+                <label class="box" :for="'shipment-' + i"></label>
+                <div class="radio__title">{{ item.name }}</div>
+                <div class="radio__subtitle">{{ item.cost }}</div>
+                <img src="../assets/images/icon-check.svg" alt="icon check" />
+              </div>
+            </div>
             <h2 class="wizard__title">Payment</h2>
-            <form></form>
+            <div class="payment-list">
+              <div class="radio-box" v-for="(item, i) in payment" :key="i">
+                <input
+                  type="radio"
+                  name="payment"
+                  :id="'payment-' + i"
+                  :value="item.name"
+                  v-model="selectedPayment"
+                />
+                <label class="box" :for="'payment-' + i"></label>
+                <div class="radio__title">{{ item.name }}</div>
+                <div class="radio__subtitle"></div>
+                <img src="../assets/images/icon-check.svg" alt="icon check" />
+              </div>
+            </div>
           </div>
           <div class="right">
-            <h3 class="wizard__subtitle">Summary</h3>
+            <div class="flex summary">
+              <div class="flex-item">
+                <h3 class="wizard__subtitle">Summary</h3>
+                <div class="label-secondary-lighten">10 items purchased</div>
+                <hr>
+                <div class="label-secondary">Delivery estimation</div>
+                <div class="label-accent">
+                  <span class="lowercase">{{ shipment[selectedShipment].deliveryEstimate }}</span> by
+                  {{ shipment[selectedShipment].name }}
+                </div>
+              </div>
+              <div class="flex-item">
+                <div class="flex summary-detail">
+                  <div class="flex-item">
+                    <div class="summary__label">Costs of goods</div>
+                    <div class="summary__label">Dropshipping fee</div>
+                    <div class="summary__label">
+                      <strong>{{ shipment[selectedShipment].name }}</strong> shipment
+                    </div>
+                    <div class="wizard__subtitle">Total</div>
+                  </div>
+                  <div class="flex-item">
+                    <div class="summary__value">{{ costs }}</div>
+                    <div class="summary__value">{{ dropshipperFee }}</div>
+                    <div class="summary__value">{{ shipment[selectedShipment].cost + 0 }}</div>
+                    <div class="wizard__subtitle">
+                      {{ totalSemua + shipment[selectedShipment].cost }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </tab-content>
       <tab-content title="Finish">
         <div class="wizard-content-wrapper flex">
           <div class="left">
-            <h2 class="wizard__title">Thank you</h2>
+            <div class="flex finish">
+              <h2 class="wizard__title">Thank you</h2>
+              <div class="label-secondary">
+                Order ID: <span class="uppercase">{{ randomID() }}</span>
+              </div>
+              <div class="label-secondary-lighten">
+                Your order will be delivered
+                <span class="lowercase">{{ shipment[selectedShipment].deliveryEstimate }}</span> by
+                {{ shipment[selectedShipment].name }}
+              </div>
+            </div>
           </div>
           <div class="right">
-            <h3 class="wizard__subtitle">Summary</h3>
+            <div class="flex summary">
+              <div class="flex-item">
+                <h3 class="wizard__subtitle">Summary</h3>
+                <div class="label-secondary-lighten">10 items purchased</div>
+                <hr />
+                <div class="label-secondary">Delivery estimation</div>
+                <div class="label-accent">
+                  <span class="lowercase">{{ shipment[selectedShipment].deliveryEstimate }}</span> by
+                  {{ shipment[selectedShipment].name }}
+                </div>
+                <hr />
+                <div class="label-secondary">Payment method</div>
+                <div class="label-accent">
+                  {{ selectedPayment }}
+                </div>
+              </div>
+              <div class="flex-item">
+                <div class="flex summary-detail">
+                  <div class="flex-item">
+                    <div class="summary__label">Costs of goods</div>
+                    <div class="summary__label">Dropshipping fee</div>
+                    <div class="summary__label">
+                      <strong>{{ shipment[selectedShipment].name }}</strong> shipment
+                    </div>
+                    <div class="wizard__subtitle">Total</div>
+                  </div>
+                  <div class="flex-item">
+                    <div class="summary__value">{{ costs }}</div>
+                    <div class="summary__value">{{ dropshipperFee }}</div>
+                    <div class="summary__value">{{ shipment[selectedShipment].cost + 0 }}</div>
+                    <div class="wizard__subtitle">
+                      {{ totalSemua + shipment[selectedShipment].cost }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </tab-content>
@@ -255,7 +358,8 @@
             @click.native="props.nextTab()"
             class="wizard-footer-right"
             :style="props.fillButtonStyle"
-            >Pay with e-Wallet</wizard-button
+            :disabled="!selectedPayment"
+            >Pay with {{ selectedPayment }}</wizard-button
           >
         </div>
       </template>
@@ -295,6 +399,37 @@ export default {
       address: "",
       maxcharacter: 120,
       remaincharactersText: "Remaining 120 characters.",
+      shipment: [
+        {
+          name: "GO-SEND",
+          cost: 15000,
+          deliveryEstimate: "Today",
+        },
+        {
+          name: "JNE",
+          cost: 9000,
+          deliveryEstimate: "2 Days",
+        },
+        {
+          name: "Personal Courier",
+          cost: 29000,
+          deliveryEstimate: "1 Day",
+        },
+      ],
+      payment: [
+        {
+          name: "e-Wallet",
+        },
+        {
+          name: "Bank Transfer",
+        },
+        {
+          name: "Vitual Account",
+        },
+      ],
+      selectedShipment: 0,
+      selectedPayment: "",
+      genericID: "",
     };
   },
   validations: {
@@ -318,10 +453,16 @@ export default {
     },
     address: {
       required,
+      minLength: minLength(10),
       maxLength: maxLength(120),
     },
   },
   methods: {
+    randomID() {
+      return Math.random()
+        .toString(36)
+        .substr(2, 5);
+    },
     isLastStep() {
       if (this.$refs.wizard) {
         return this.$refs.wizard.isLastStep;
@@ -369,12 +510,18 @@ export default {
   margin 50px
   box-shadow 2px 10px 20px rgba(255, 138, 0, 0.1)
   border-radius 4px
+  @media small
+    margin 50px 10px
 
   .vue-form-wizard
     padding 0
 
   .wizard-tab-content
     padding 30px 0 0 20px
+    @media medium
+      padding-left 0
+    @media x-medium
+      margin-top 30px
 
   .wizard-btn
     border-radius 0
@@ -388,6 +535,19 @@ export default {
     position absolute
     top 30px
     left  35px
+    @media medium
+      left 20px
+    @media x-medium
+      top 54px
+
+  .wizard-btn--back.wizard-btn--center
+    position: absolute;
+    bottom: 32%;
+    left: 19%;
+    @media medium
+      bottom unset
+      top: 32%;
+      left: 25%;
 
   .wizard-btn--back
     position relative
@@ -406,6 +566,9 @@ export default {
   .wizard-content-wrapper
     $padding = 25px
     justify-content space-between
+    min-height: 400px;
+    @media medium
+      flex-direction column
     .wizard__title
       title()
       position relative
@@ -419,32 +582,58 @@ export default {
         left: 0;
         bottom: 2px;
         z-index: -1;
+        @media x-small
+          width 100%
     .wizard__subtitle
       subtitle()
       margin-bottom .5rem
     .left
-      flex-basis 73%
+      flex-basis 70%
       padding-right $padding
       border-right  1px solid $secondary-lighten3
+      @media large
+        flex-basis 65%
+      @media medium
+        padding-right 0
+        border none
       .flex
         justify-content space-between
         align-items flex-start
-        .flex-item
-          &:nth-child(odd)
-            flex-basis 56%
-          &:nth-child(even)
-            flex-basis 40%
-            text-align right
+        @media x-medium
+          flex-direction column
+        &.delivery
+          .flex-item
+            &:nth-child(1)
+              flex-basis 56%
+            &:nth-child(2)
+              flex-basis 40%
+              text-align right
+              @media x-medium
+                width 100%
         .checkbox
-          margin: 1.6rem 0 2.6rem;
+          margin 1.6rem 0 2.8rem
           display inline-block
+      .shipment-list
+        margin-bottom 3rem
+      .finish
+        flex-direction column
+        height 70%
+        justify-content center
+        width 50%
+        margin 0 auto
     .right
-      flex-basis 27%
-      padding-left $padding
+      flex-basis 30%
+      padding-left $padding        
+      @media large
+        flex-basis 35%        
+      @media medium
+        padding-left 0
       .summary
-        height 95%
+        height 100%
         flex-direction column
         justify-content space-between
+        > .flex-item
+          margin-bottom 40px
       .summary-detail
         justify-content space-between
         .flex-item:last-child
@@ -456,4 +645,8 @@ export default {
       .summary__value
         font-weight 600
         margin-bottom $margin
+      hr
+        border 1px solid $secondary-lighten4
+        margin 1rem 0
+        width 35%
 </style>

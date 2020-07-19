@@ -13,56 +13,51 @@ body
   font-weight normal
 
   #app
-    // max-width 1440px
-    width 85%
+    max-width 1440px
+    width 90%
     margin 0 auto
-    width 1124px
+    // width 1224px
+    @media large
+      width 99%
 
 /* hide input number arrows */
-// Chrome, Safari, Edge, Opera
 input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
+input::-webkit-inner-spin-button 
+  -webkit-appearance none
+  margin 0
 
-// Firefox
-input[type=number] {
-  -moz-appearance: textfield;
-}
+input[type=number] 
+  -moz-appearance textfield
 
-button:hover {
+button:hover 
   opacity .8
-}
 
 input[disabled]
   background $secondary-lighten4
 
-//** form **//
-// input field
+.uppercase
+  text-transform uppercase
 
+.lowercase
+  text-transform lowercase
 
-// button
+.label-secondary
+  color $secondary
+  margin-bottom 10px
 
+.label-secondary-lighten
+  color $secondary-lighten2
 
-
-// mixin
-input()
-  display inline-block
-  width 100%
-  padding 20px
-  border 1px solid $secondary-lighten3
-  border-radius 0
-  margin-bottom 15px
-
-textarea()
-  input()
+.label-accent
+  color $accent
+  font-size 16px
 
 .flex
   display flex
   flex-direction row
   flex-wrap wrap
 
+// mixin
 title()
   font-size 35px
   color $primary
@@ -77,155 +72,177 @@ subtitle()
   margin 1.3rem 0
   font-weight 600
 
+// input, textarea
 .form-group
-  position: relative;
-  margin-bottom: 10px;
+  position relative
+  margin-bottom 10px
   .note
     color $secondary-lighten2
     .error
       color $primary
 
-.form-group.form-group--textarea
-  text-align right
+  &.form-group--textarea
+    text-align right
 
+  field-focus()
+    outline none
+    border-color $secondary-lighten3
 
-.form-group input,
-.form-group textarea {
-  font-size: 15px;
-  font-weight: 600;
-  color: #2D2A40;
-  height: 55px;
-  transition: all 0.28s ease;
-  width: 100%;
-  padding: 20px 10px 5px;
-  border: 1px solid #ccc;
-  border-radius: 0;
-}
+  input
+    font-size 15px
+    font-weight 600
+    color #2D2A40
+    height 55px
+    transition all 0.28s ease
+    width 100%
+    padding 20px 10px 5px
+    border 1px solid $secondary-lighten3
+    border-radius 0
+    &:focus
+      field-focus()
+    
+  textarea
+    @extend input
+    min-height 130px
+    resize none
+    padding-top 30px
+    overflow hidden
+    font-size 15px
+    &:focus
+      field-focus()
 
-.form-group textarea
-  min-height 130px
-  resize none
-  padding-top: 30px
-  overflow hidden
-  font-size 15px
-
-label.control-label {
-    position: absolute;
-    left: 10px;
-    top: 47%;
-    transform: translateY(-50%);
-    color: #ccc;
-    transition: all 0.28s ease;
+  label.control-label 
+    position absolute
+    left 10px
+    top 47%
+    transform translateY(-50%)
+    color $secondary-lighten3
+    transition all 0.28s ease
     cursor text
-}
 
-.form-group .icon {
-    position: absolute;
-    right: 13px;
-    top: 20px;
-    // display none
-}
+  .icon 
+    position absolute
+    right 13px
+    top 20px
 
-.form-group.form-group--textarea .icon
-  top 13px
+  &.form-group--textarea .icon
+    top 13px
 
-.form-group textarea ~ .control-label
-  top 28px
+  textarea ~ .control-label
+    top 28px
+  
+  $validColor = $accent
+  $invalidColor = $primary
 
-.form-group input:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: #cccccc;
-}
+  &.form-group--invalid input,
+  &.form-group--invalid textarea
+    border-color $invalidColor
 
-.form-group.form-group--invalid input,
-.form-group.form-group--invalid textarea {
-    border-color: $primary;
-}
-
-.form-group.form-group--invalid .note
-  color $primary
-
-.form-group.form-group--valid input,
-.form-group.form-group--valid textarea {
-    border-color: $accent;
-}
-// .form-group input:focus ~ .icon
-//   visibility visible
-
-.form-group input:focus ~ .control-label,
-.form-group input:valid ~ .control-label,
-.form-group textarea:focus ~ .control-label,
-.form-group textarea:valid ~ .control-label
-    color $primary
+  label-up()
     top 17px
     font-size 12px
 
+  &.form-group--invalid .control-label
+    color $invalidColor
+    label-up()
+
+  &.form-group--invalid .note
+    color $invalidColor
+
+  &.form-group--valid input,
+  &.form-group--valid textarea
+    border-color $validColor
+
+  &.form-group--valid .control-label
+    color $validColor
+    label-up() 
+
+  input:focus ~ .control-label,
+  input:valid ~ .control-label,
+  textarea:focus ~ .control-label,
+  textarea:valid ~ .control-label
+    label-up()
+
 // custom checkbox
-.checkbox {
-  display: block;
-  position: relative;
-  padding-left: 25px;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
+.checkbox 
+  display block
+  position relative
+  padding-left 25px
+  cursor pointer
+  -webkit-user-select none
+  -moz-user-select none
+  -ms-user-select none
+  user-select none
+  &:hover
+    opacity .8
+  input 
+    position absolute
+    opacity 0
+    cursor pointer
+    height 0
+    width 0
+  .checkmark 
+    position absolute
+    top 0
+    left 0
+    height 20px
+    width 20px
+    border 2px solid $accent
+    &:after 
+      content ""
+      position absolute
+      display none
+      left 5px
+      top 0px
+      width 5px
+      height 10px
+      border solid #1bd97b
+      border-width 0 2px 2px 0
+      -webkit-transform rotate(45deg)
+      -ms-transform rotate(45deg)
+      transform rotate(45deg)
+  input:checked ~ .checkmark:after 
+    display block
 
-.checkbox:hover
-  opacity .8
-
-/* Hide the browser's default checkbox */
-.checkbox input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
-/* Create a custom checkbox */
-.checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 20px;
-  width: 20px;
-  border 2px solid $accent
-}
-
-/* On mouse-over, add a grey background color */
-// .checkbox:hover input ~ .checkmark {
-//   background-color: #ccc;
-// }
-
-/* When the checkbox is checked, add a blue background */
-// .checkbox input:checked ~ .checkmark {
-//   background-color: #2196F3;
-// }
-
-/* Create the checkmark/indicator (hidden when not checked) */
-.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-
-/* Show the checkmark when checked */
-.checkbox input:checked ~ .checkmark:after {
-  display: block;
-}
-
-/* Style the checkmark/indicator */
-.checkbox .checkmark:after {
-  left: 5px;
-  top: 0px;
-  width: 5px;
-  height: 10px;
-  border: solid #1bd97b;
-  border-width: 0 2px 2px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
-}
+// custom radio box
+.radio-box
+  display inline-block
+  min-width 175px
+  padding 12px 15px
+  position relative
+  margin-bottom 10px
+  &:not(:last-child)
+    margin-right 10px  
+  input
+    display none
+  .box
+    display inline-block
+    position absolute
+    top 0
+    left 0
+    right 0
+    bottom 0
+    cursor pointer
+    border 1px solid $secondary-lighten3
+    transition all .3s ease
+    z-index 1
+    min-height 40px
+  img
+    opacity 0
+    transition all 0.3s ease
+    position absolute
+    right 18px
+    top 50%
+    transform translateY(-50%)
+  .radio__title
+    margin-bottom 3px
+  .radio__subtitle
+    font-weight 600
+    font-size 16px
+    color $secondary-lighten2
+  input[type="radio"]:checked ~ img 
+    opacity 1
+  input[type="radio"]:checked ~ .box
+    border-color $accent
+  input[type="radio"]:checked ~ .radio__subtitle
+    color $secondary
